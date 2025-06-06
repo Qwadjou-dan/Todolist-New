@@ -1,0 +1,8 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "A simple todolist with both frontend and backend incorporated",
+  "main": "index.js",
+  "author": "Daniel Owusu <owusudaniel077@gmail.com>",
+  "license": "MIT"
+}
