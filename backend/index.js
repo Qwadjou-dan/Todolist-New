@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const Routes = require("./routes/userRoute");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 1001;
 todolistApp.use(bodyParser.json());
 
 //routes
+todolistApp.use("/api", Routes);
 
 //start server
 mongoose

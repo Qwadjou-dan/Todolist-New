@@ -62,7 +62,7 @@ const signUp = async (req, res) => {
         },
       });
   } catch (error) {
-    console.error("❌ Error occurred during user sign-up:", error.message);
+    console.error("Error occurred during user sign-up:", error.message);
 
     // If it's a Mongoose validation error
     if (error.name === "ValidationError") {
