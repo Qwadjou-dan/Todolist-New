@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signUpApi } from "../../services/api";
 
 const SignUp = () => {
   const [fullname, setFullname] = useState("");
@@ -7,6 +8,7 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -24,8 +26,23 @@ const SignUp = () => {
       username,
       password,
     });
+
+    try {
+      await signUpApi({ fullname, username, email, password });
+      alert("Sign up successful");
+
+      //Redirect to home and pass username
+      navigate("/", {
+        state: {
+          username,
+        },
+      });
+    } catch (error) {
+      alert("Sign up failed: " + error.message);
+      console.log(error);
+    }
   };
-    
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200 p-4">
       <div className="w-full max-w-md shadow-xl bg-base-100 rounded-xl p-8 space-y-6">

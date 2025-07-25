@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 const InputItems = ({ handleNewTask }) => {
-  const [task, setTask] = useState("");
+  const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [complete, setComplete] = useState(false);
@@ -11,20 +11,20 @@ const InputItems = ({ handleNewTask }) => {
   const handleAddTask = (e) => {
     e.preventDefault();
 
-    if (!task.trim()) {
+    if (!taskName.trim()) {
       setErrorMessage("Task cannot be empty.");
       return;
     }
 
     handleNewTask({
       id: uuid(),
-      task,
+      taskName,
       date,
       time,
       complete,
     });
 
-    setTask("");
+    setTaskName("");
     setDate("");
     setTime("");
     setErrorMessage("");
@@ -39,16 +39,16 @@ const InputItems = ({ handleNewTask }) => {
       <form onSubmit={handleAddTask} className="space-y-6">
         {/* Task Input */}
         <div>
-          <label htmlFor="task" className="label">
+          <label htmlFor="taskName" className="label">
             <span className="label-text">Task Name</span>
           </label>
           <input
-            id="task"
+            id="taskName"
             type="text"
             className="input input-bordered w-full"
             placeholder="e.g. Buy groceries"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
           />
           {errorMessage && (
             <p className="text-red-500 text-sm mt-1">{errorMessage}</p>

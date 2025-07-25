@@ -1,29 +1,75 @@
 //imports
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputTask from "../tasks/inputTask";
 import TaskList from "../tasks/taskList";
 import Navbar from "../pages/navbar";
+import {
+  createTask,
+  deleteTask,
+  retrieveTask,
+  updateTask,
+} from "../../services/api";
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState([]);
   const username = "username"; // Placeholder for username
 
-  const handleNewTask = (newTask) => {
-    setTasks([...tasks, newTask]);
+  const handleNewTask = async (newTask) => {
+    try {
+      const createdTask = await createTask(newTask);
+      console.log("Created task: ", createdTask);
+      setTasks([...tasks, createdTask.task]);
+    } catch (error) {
+      console.error("Error adding new task:", error.message);
+    }
   };
 
-  const handleDeleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  useEffect(() => {
+    const getTasks = async () => {
+      try {
+        const retrievedTask = await retrieveTask();
+        // console.log("Retrieved Tasks: ", retrievedTask.tasks);
+        setTasks(retrievedTask.tasks || []);
+      } catch (error) {
+        console.log("Error retrieving tasks:", error.message);
+      }
+    };
+
+    getTasks();
+  }, [tasks]);
+
+  const handleDeleteTask = async (id) => {
+    try {
+      const deletedTask = await deleteTask(id);
+      setTasks(tasks.filter((task) => task._id !== id));
+    } catch (error) {
+      console.log("Error deleting task:", error.message);
+    }
   };
 
   const handleCompletedTask = (id) => {
     setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, complete: true } : task))
+      tasks.map((task) =>
+        (task.id || task._id) === id ? { ...task, complete: true } : task
+      )
     );
   };
 
-  const handleEditTask = (id, newTask) => {
-    setTasks(tasks.map((task) => (task.id === id ? newTask : task)));
+  const handleEditTask = async (id, newTask) => {
+    try {
+      const updatedTask = await updateTask(id, newTask);
+      const editedTask = tasks.map((task) => {
+        if (task._id === id) {
+          return { ...task, task: newTask.task };
+        } else {
+          return task;
+        }
+      });
+      setTasks(editedTask);
+      console.log(updatedTask);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

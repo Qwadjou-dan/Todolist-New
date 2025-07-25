@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { signInApi } from "../../services/api";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -14,15 +15,22 @@ const SignIn = () => {
     }
   }, [location.state]);
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
-    if (username.trim() && password.trim()) {
-      // Simulate authentication success
-      localStorage.setItem("username", username);
+    if (!username.trim() || !password.trim()) {
+      setErrorMessage("Please enter both username and password.");
+      return;
+    }
+
+    try {
+      const userData = await signInApi({ username, password });
+
+      localStorage.setItem("username", userData.username);
       navigate("/tasks");
-    } else {
-      setError("Please enter both username and password.");
+    } catch (error) {
+      setErrorMessage(error.message);
+      console.error(error);
     }
   };
 

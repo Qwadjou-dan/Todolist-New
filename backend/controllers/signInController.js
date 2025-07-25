@@ -18,9 +18,8 @@ const signIn = async (req, res) => {
     }
 
     //check if user exist
-    const existingUser = await userModel.findOne(
-      email ? { email } : { username }
-    );
+    const query = email ? { email } : { username };
+    const existingUser = await userModel.findOne(query);
     if (!existingUser) {
       return res.status(400).json({
         message: "User not found",

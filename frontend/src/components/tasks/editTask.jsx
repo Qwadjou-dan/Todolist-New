@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
 export const EditTask = ({ task, handleEditTask }) => {
-  const [taskName, setTaskName] = useState(task.task);
+  const [taskName, setTaskName] = useState(task.taskName);
   const [date, setDate] = useState(task.date);
   const [time, setTime] = useState(task.time);
   const modalRef = useRef(null);
@@ -19,13 +19,15 @@ export const EditTask = ({ task, handleEditTask }) => {
     e.preventDefault();
 
     const updatedTask = {
-      id: task.id,
-      task: taskName,
+      // id: task.id,
+      taskName,
       date,
       time,
     };
 
-    handleEditTask(task.id, updatedTask);
+    console.log(updatedTask);
+
+    handleEditTask(task._id, updatedTask);
     closeModal();
   };
 

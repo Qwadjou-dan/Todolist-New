@@ -4,5 +4,9 @@
   "description": "A simple todolist with both frontend and backend incorporated",
   "main": "index.js",
   "author": "Daniel Owusu <owusudaniel077@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "js-cookie": "^3.0.5"
+  }
 }
