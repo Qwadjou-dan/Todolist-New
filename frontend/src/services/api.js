@@ -4,7 +4,7 @@ import Cookie from "js-cookie";
 
 //set the base URL for axios
 const api = axios.create({
-  baseURL: "https://todolist-backend-57ld.onrender.com,
+  baseURL: "https://todolist-backend-57ld.onrender.com",
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
