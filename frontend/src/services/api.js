@@ -13,7 +13,7 @@ const api = axios.create({
 
 export const signUpApi = async ({ fullname, username, email, password }) => {
   try {
-    const response = await api.post("/signup", {
+    const response = await api.post("/api/signup", {
       fullname,
       username,
       email,
@@ -31,7 +31,7 @@ export const signUpApi = async ({ fullname, username, email, password }) => {
 
 export const signInApi = async ({ username, password }) => {
   try {
-    const response = await api.post("/signin", {
+    const response = await api.post("/api/signin", {
       username,
       password,
     });
@@ -52,7 +52,7 @@ export const createTask = async ({
   complete = false,
 }) => {
   try {
-    const response = await api.post("/tasks", {
+    const response = await api.post("/api/tasks", {
       taskName,
       date,
       time,
@@ -69,7 +69,7 @@ export const createTask = async ({
 
 export const retrieveTask = async () => {
   try {
-    const response = await api.get("/tasks");
+    const response = await api.get("/api/tasks");
     return response.data;
   } catch (error) {
     console.error("Retrieving Error:", error);
@@ -81,7 +81,7 @@ export const retrieveTask = async () => {
 
 export const updateTask = async (taskId, updatedTask) => {
   try {
-    const response = await api.put(`/tasks/${taskId}`, updatedTask);
+    const response = await api.put(`/api/tasks/${taskId}`, updatedTask);
     return response.data;
   } catch (error) {
     console.error("Updating Error:", error);
@@ -93,7 +93,7 @@ export const updateTask = async (taskId, updatedTask) => {
 
 export const deleteTask = async (taskId) => {
   try {
-    const response = await api.delete(`/tasks/${taskId}`);
+    const response = await api.delete(`/api/tasks/${taskId}`);
     return response.data;
   } catch (error) {
     console.error("Deleting Error:", error);
