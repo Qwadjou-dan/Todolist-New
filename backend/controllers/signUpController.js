@@ -47,7 +47,8 @@ const signUp = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true, // blocks client-side JS from accessing the cookie
-        secure: false,
+        secure: true,
+        sameSite: "None"
         maxAge: 3600000,
       })
       .status(201)
